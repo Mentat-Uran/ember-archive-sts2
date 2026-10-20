@@ -1,0 +1,10 @@
+{
+  "name": "ember-archive-sts2",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "sync:question-source": "node scripts/sync-shared-source.mjs",
+    "mod:pack": "node scripts/package-sts2-mod.mjs"
+  }
+}
