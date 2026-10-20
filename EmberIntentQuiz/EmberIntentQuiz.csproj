@@ -1,0 +1,40 @@
+<Project Sdk="Godot.NET.Sdk/4.5.1" InitialTargets="CheckDependencyPaths">
+  <Import Project="Sts2PathDiscovery.props" />
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+    <AssemblyName>EmberIntentQuiz</AssemblyName>
+    <RootNamespace>EmberIntentQuiz</RootNamespace>
+    <ModOutputDir>$(MSBuildProjectDirectory)/../output/EmberIntentQuiz</ModOutputDir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="sts2">
+      <HintPath>$(Sts2DataDir)/sts2.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="0Harmony">
+      <HintPath>$(Sts2DataDir)/0Harmony.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <Target Name="CheckDependencyPaths">
+    <Error Text="Slay the Spire 2 was not found. Set STS2_PATH or pass /p:Sts2Path=... to dotnet build."
+           Condition="'$(Sts2DataDir)' == '' or !Exists('$(Sts2DataDir)/sts2.dll') or !Exists('$(Sts2DataDir)/0Harmony.dll')" />
+  </Target>
+
+  <Target Name="PackageQuestionBank" BeforeTargets="Build">
+    <Exec Command="node &quot;$(MSBuildProjectDirectory)/../scripts/package-sts2-mod.mjs&quot;" />
+  </Target>
+
+  <Target Name="StageModAssembly" AfterTargets="Build">
+    <MakeDir Directories="$(ModOutputDir)" />
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(ModOutputDir)" />
+    <Copy SourceFiles="$(TargetDir)$(TargetName).pdb" DestinationFolder="$(ModOutputDir)"
+          Condition="Exists('$(TargetDir)$(TargetName).pdb')" />
+  </Target>
+</Project>
