@@ -1,0 +1,24 @@
+<Project>
+  <PropertyGroup>
+    <IsLinux>false</IsLinux>
+    <IsMacOS>false</IsMacOS>
+    <IsLinux Condition="$([MSBuild]::IsOSPlatform('Linux'))">true</IsLinux>
+    <IsMacOS Condition="$([MSBuild]::IsOSPlatform('OSX'))">true</IsMacOS>
+    <Sts2Path Condition="'$(Sts2Path)' == '' and '$(STS2_PATH)' != ''">$(STS2_PATH)</Sts2Path>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(IsLinux)' == 'true'">
+    <Sts2Path Condition="'$(Sts2Path)' == ''">$(HOME)/.local/share/Steam/steamapps/common/Slay the Spire 2</Sts2Path>
+    <Sts2DataDir>$(Sts2Path)/data_sts2_linuxbsd_x86_64</Sts2DataDir>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(IsMacOS)' == 'true'">
+    <Sts2Path Condition="'$(Sts2Path)' == ''">$(HOME)/Library/Application Support/Steam/steamapps/common/Slay the Spire 2</Sts2Path>
+    <Sts2DataDir>$(Sts2Path)/SlayTheSpire2.app/Contents/Resources/data_sts2_macos_x86_64</Sts2DataDir>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(IsLinux)' != 'true' and '$(IsMacOS)' != 'true'">
+    <Sts2Path Condition="'$(Sts2Path)' == ''">$(ProgramFiles(x86))/Steam/steamapps/common/Slay the Spire 2</Sts2Path>
+    <Sts2DataDir>$(Sts2Path)/data_sts2_windows_x86_64</Sts2DataDir>
+  </PropertyGroup>
+</Project>
