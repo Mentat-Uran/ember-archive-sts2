@@ -1,0 +1,14 @@
+config_version=5
+
+[application]
+
+config/name="Ember Intent Quiz"
+config/features=PackedStringArray("4.5", "C#")
+
+[dotnet]
+
+project/assembly_name="EmberIntentQuiz"
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
