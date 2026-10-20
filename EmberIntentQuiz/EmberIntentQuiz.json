@@ -1,0 +1,11 @@
+{
+  "id": "EmberIntentQuiz",
+  "name": "余烬答题显意",
+  "author": "Mentat-Uran",
+  "description": "答对一道行测单选题后显示本回合怪物意图；答错或跳过则继续隐藏。",
+  "version": "1.0.0",
+  "min_game_version": "0.107.0",
+  "has_pck": false,
+  "has_dll": true,
+  "affects_gameplay": true
+}
